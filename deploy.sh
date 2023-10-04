@@ -1,16 +1,24 @@
 #!/bin/bash
 
-# Step 7: Copy the WebAssembly package and web files to 'docs'
-mkdir -p docs
-cp -r pkg/* docs/
-cp -r web/* docs/
-cp index.html docs/index.html
-cp index.js docs/index.js
+# Exit on any error
+set -e
 
+# Build the Rust/Wasm project
+wasm-pack build --target web
 
-# Step 8: Add, commit, and push changes to GitHub
-git add docs/*
-git commit -m "Deploy to GitHub Pages"
-git push origin main
+# Checkout to the gh-pages branch
+git checkout gh-pages
 
-echo "Deployed to GitHub Pages."
+# Copy files from pkg to current directory
+cp pkg/* .
+
+# Add, commit, and push the changes to gh-pages branch
+git add .
+git commit -m "Deploy updates"
+git push origin gh-pages
+
+# Switch back to your previous branch
+git checkout -
+
+# Output a message indicating successful deployment
+echo "Successfully deployed to gh-pages branch."
