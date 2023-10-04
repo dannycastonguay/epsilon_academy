@@ -1,27 +1,28 @@
 #!/bin/bash
-
 # Exit on any error
 set -e
 
-# Build the Wasm package
-wasm-pack build --target web
+# Build the project
+wasm-pack build --release
 
-# Commit and push the main branch
-git add -A
+# Commit changes on the main branch
+git add .
 git commit -m "Update main branch"
 git push origin main
 
-# Switch to gh-pages branch and copy files
-git checkout gh-pages
-cp -r pkg/* .
+# Copy pkg directory to a temp location
+cp -r pkg /tmp/
 
-# Commit and push the gh-pages branch
-git add -A
-git commit -m "Update GitHub Pages"
+# Switch to gh-pages branch
+git checkout gh-pages
+
+# Copy files from temp location to current directory
+cp -r /tmp/pkg/* .
+
+# Add, commit and push files
+git add .
+git commit -m "Update gh-pages branch"
 git push origin gh-pages
 
-# Switch back to the main branch
+# Go back to the main branch
 git checkout main
-
-# Output a message indicating successful deployment
-echo "Successfully deployed to gh-pages branch."
