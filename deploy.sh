@@ -4,6 +4,9 @@
 mkdir -p docs
 cp -r pkg/* docs/
 cp -r web/* docs/
+cp index.html docs/index.html
+cp index.js docs/index.js
+
 
 # Step 8: Add, commit, and push changes to GitHub
 git add docs/*
