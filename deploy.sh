@@ -3,22 +3,25 @@
 # Exit on any error
 set -e
 
-# Build the Rust/Wasm project
+# Build the Wasm package
 wasm-pack build --target web
 
-# Checkout to the gh-pages branch
+# Commit and push the main branch
+git add -A
+git commit -m "Update main branch"
+git push origin main
+
+# Switch to gh-pages branch and copy files
 git checkout gh-pages
+cp -r pkg/* .
 
-# Copy files from pkg to current directory
-cp pkg/* .
-
-# Add, commit, and push the changes to gh-pages branch
-git add .
-git commit -m "Deploy updates"
+# Commit and push the gh-pages branch
+git add -A
+git commit -m "Update GitHub Pages"
 git push origin gh-pages
 
-# Switch back to your previous branch
-git checkout -
+# Switch back to the main branch
+git checkout main
 
 # Output a message indicating successful deployment
 echo "Successfully deployed to gh-pages branch."
