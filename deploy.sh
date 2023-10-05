@@ -1,26 +1,18 @@
 #!/bin/bash
 
 # Build the project
-wasm-pack build --target web
+wasm-pack build --target web --release
 
-# Commit changes on the main branch
+# Commit and push to main
+git checkout main
 git add .
 git commit -m "Update main branch"
 git push origin main
 
-# Copy pkg directory to a temp location
-cp -r pkg /tmp/
-
-# Switch to gh-pages branch
+# Make gh-pages an exact copy of main
 git checkout gh-pages
+git reset --hard main
+git push -f origin gh-pages
 
-# Copy files from temp location to current directory
-cp -r /tmp/pkg/* .
-
-# Add, commit and push files
-git add .
-git commit -m "Update gh-pages branch"
-git push origin gh-pages
-
-# Go back to the main branch
+# Switch back to main
 git checkout main
