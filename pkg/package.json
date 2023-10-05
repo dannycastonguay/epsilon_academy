@@ -7,13 +7,11 @@
   "files": [
     "epsilon_academy_bg.wasm",
     "epsilon_academy.js",
-    "epsilon_academy_bg.js",
     "epsilon_academy.d.ts"
   ],
   "module": "epsilon_academy.js",
   "types": "epsilon_academy.d.ts",
   "sideEffects": [
-    "./epsilon_academy.js",
     "./snippets/*"
   ]
 }
