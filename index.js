@@ -12,7 +12,7 @@ async function run() {
     const input = inputElement.value;
     history.push(input);
     historyIndex = history.length;
-    const [command, ...params] = input.split(' ');
+    const [command, ...params] = input.toLowerCase().split(' ');
 
     const commandElement = document.createElement('div');
     commandElement.textContent = '> ' + input;
@@ -26,6 +26,17 @@ async function run() {
   }
 
   const inputElement = document.getElementById('commandInput');
+  const submitButton = document.getElementById('submitButton');
+
+  submitButton.className = 'inactive';
+
+  inputElement.addEventListener('input', function() {
+    if (inputElement.value === '') {
+      submitButton.className = 'inactive';
+    } else {
+      submitButton.className = 'active';
+    }
+  });
 
   inputElement.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
@@ -52,7 +63,7 @@ async function run() {
     }
   });
 
-  document.getElementById('submitButton').addEventListener('click', function() {
+  submitButton.addEventListener('click', function() {
     executeCommand();
   });
 

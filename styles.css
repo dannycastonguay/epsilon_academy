@@ -37,11 +37,23 @@ body, html {
   border: none;
 }
 
+#submitButton.inactive {
+  background-color: white;
+  color: lightgray;
+}
+
+#submitButton.active {
+  background-color: lightcoral;
+  color: white;
+}
+
+
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
   #submitButton {
     width: 60px;
     height: 60px;
+    font-size: 1.5rem;
   }
 
   body, #terminal, #commandInput {
