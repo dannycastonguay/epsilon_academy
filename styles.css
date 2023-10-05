@@ -36,3 +36,15 @@ body, html {
   background-color: transparent;
   border: none;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+  #submitButton {
+    width: 60px;
+    height: 60px;
+  }
+
+  body, #terminal, #commandInput {
+    font-size: 24px;  /* Increase as needed */
+  }
+}
