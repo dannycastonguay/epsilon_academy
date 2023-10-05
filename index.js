@@ -1,4 +1,4 @@
-import init, { route_command } from '/pkg/epsilon_academy.js';
+import init, { route_command } from '../pkg/epsilon_academy.js';
 
 async function run() {
   await init();

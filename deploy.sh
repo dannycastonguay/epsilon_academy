@@ -1,9 +1,7 @@
 #!/bin/bash
-# Exit on any error
-set -e
 
 # Build the project
-wasm-pack build --release
+wasm-pack build --target web
 
 # Commit changes on the main branch
 git add .
