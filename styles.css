@@ -18,21 +18,21 @@ body, html {
 #input-box {
   width: 100%;
   display: flex;
-  padding: 5px;
+  /*padding: 5px;*/
   background-color: #FFFFFF;
   border-top: 1px solid #CCC;
 }
 
 #commandInput {
   flex: 1;
-  padding: 5px;
+  padding: 17px;
   border: none;
 }
 
 #submitButton {
   width: 40px;
   height: 40px;
-  padding: 5px;
+  margin: 5px;
   background-color: transparent;
   border: none;
 }
