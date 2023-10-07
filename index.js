@@ -67,6 +67,8 @@ async function run() {
     executeCommand();
   });
 
+  executeCommand();
+
 }
 
-run();
+run()

@@ -18,6 +18,6 @@ pub fn route_command(command: String, arg: Option<u32>) -> String {
             let max_number = arg.unwrap_or(10);  // Default to 10 if no argument is provided
             prime_numbers(max_number)
         }
-        _ => "Unknown command".to_string(),
+        _ => about(),
     }
 }

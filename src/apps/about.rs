@@ -7,6 +7,6 @@ pub fn about() -> String {
                 Pascale (Inspired by French math),\n\
                 Linus (Inspired by the creator of Linux),\n\
                 Ada (Inspired by the first programmer).\n\
-                We design all software products ourselves and publish content on what we learn.";
+                We design all software products ourselves and publish content on what we learn. Try the following commands: about (this), hello_world, and prime_numbers NUM.";
     info.to_string()
 }
