@@ -16,3 +16,6 @@ git push -f origin gh-pages
 
 # Switch back to main
 git checkout main
+
+# Open the default web browser to navigate to github
+open 'https://github.com/dannycastonguay/epsilon_academy'
