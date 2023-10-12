@@ -33,6 +33,7 @@ function route_command(command, arg) {
     case "about": return about();
     case "hello_world": return hello_world();
     case "prime_numbers": return prime_numbers(arg);
+    case "dragon": return dragon();
     default: return "Command not found";
   }
 }
