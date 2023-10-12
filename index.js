@@ -99,6 +99,18 @@ async function run() {
     executeCommand();
   });
 
+   // Function to execute a predefined command
+   function executePredefinedCommand(cmd) {
+    const inputElement = document.getElementById('commandInput');
+    inputElement.value = cmd;
+    executeCommand();
+  }
+
+  // Print the 'about' information when the page is loaded
+  executePredefinedCommand('about');
+
+  // Set focus to the input box
+  document.getElementById('commandInput').focus();
 
 }
 
