@@ -1,4 +1,43 @@
-// Define utility functions
+let inInputMode = false;  // State variable to flag when the terminal is in "input mode"
+
+async function ask(question) {
+  return new Promise((resolve) => {
+    inInputMode = true;  // Set flag to indicate that terminal is in "input mode"
+
+    const terminal = document.getElementById('terminal');
+    const questionElement = document.createElement('div');
+    questionElement.textContent = question;
+    terminal.appendChild(questionElement);
+
+    const listener = (event) => {
+      if (event.key === 'Enter') {
+        document.getElementById('commandInput').removeEventListener('keydown', listener);
+        resolve(event.target.value);
+        event.target.value = '';
+        inInputMode = false;  // Reset the flag
+      }
+    };
+
+    document.getElementById('commandInput').addEventListener('keydown', listener);
+  });
+}
+
+// Define apps
+async function personalInfo() {
+  const name = await ask('What is your name?');
+  const age = await ask('What is your age?');
+  let driversLicense = '';
+
+  if (parseInt(age) > 15) {
+    driversLicense = await ask('Do you have a driver\'s license? (yes/no)');
+  }
+
+  const confirmation = `Name: ${name}, Age: ${age}`;
+  const licenseInfo = driversLicense ? `, Driver's License: ${driversLicense}` : '';
+
+  return confirmation + licenseInfo;
+}
+
 function dragon () {
   return "You have been reincarnated as a dragon are you a boy, a girl, or something_else?"
 }
@@ -25,7 +64,7 @@ function hello_world() {
   return "Hello world";
 }
 
-function prime_numbers(max) {
+function prime_numbers(max = 100) {
   let result = [];
   for(let i = 2; i <= max; i++) {
     if (is_prime(i)) {
@@ -42,44 +81,48 @@ function is_prime(n) {
   return n > 1;
 }
 
-function route_command(command, arg) {
+// Route the apps
+async function route_command(command, arg) {
   switch(command) {
-    case "about": return about();
-    case "hello_world": return hello_world();
+    case "about": return about(arg);
+    case "hello_world": return hello_world(arg);
     case "prime_numbers": return prime_numbers(arg);
     case "dragon": return dragon();
     case "boy": return boy();
     case "girl": return girl();
     case "something_else": return something_else();
     case "seawing": return seawing ();
-    case "one": return one ();
-    case "two": return two ();
+    case "personal_info": return await personalInfo(arg);
     default: return "Command not found";
   }
 }
 
+// Main terminal
 async function run() {
-
   const history = [];
   let historyIndex = -1;
 
-  function executeCommand() {
+  async function executeCommand() {
+    if (inInputMode) {
+      return;  // Exit the function if in "input mode"
+    }
     const terminal = document.getElementById('terminal');
     const inputElement = document.getElementById('commandInput');
     const input = inputElement.value;
+    inputElement.value = '';
     history.push(input);
     historyIndex = history.length;
     const [command, ...params] = input.toLowerCase().split(' ');
+    const joinedParams = params.join(' ').trim() || undefined;
 
     const commandElement = document.createElement('div');
     commandElement.textContent = '> ' + input;
     terminal.appendChild(commandElement);
 
-    const output = route_command(command, params.join(' '));
+    const output = await route_command(command, joinedParams);
     const outputElement = document.createElement('div');
     outputElement.textContent = output;
     terminal.appendChild(outputElement);
-    inputElement.value = '';
   }
 
   const inputElement = document.getElementById('commandInput');
@@ -124,19 +167,15 @@ async function run() {
     executeCommand();
   });
 
-   // Function to execute a predefined command
-   function executePredefinedCommand(cmd) {
+  function executePredefinedCommand(cmd) {
     const inputElement = document.getElementById('commandInput');
     inputElement.value = cmd;
     executeCommand();
   }
 
-  // Print the 'about' information when the page is loaded
   executePredefinedCommand('about');
 
-  // Set focus to the input box
   document.getElementById('commandInput').focus();
-
 }
 
-run()
+run();
