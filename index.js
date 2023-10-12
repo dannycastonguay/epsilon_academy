@@ -39,11 +39,25 @@ async function personalInfo() {
 }
 
 function dragon () {
-  return "You have been reincarnated as a dragon are you a boy or girl?"
+  return "You have been reincarnated as a dragon are you a boy, a girl, or something_else?"
 }
 
+function boy () { var pg ="boy";
+  return "Okay, do you want to be a Seawing, Rainwing, Nightwing, Mudwing, Sandwing or Skywing?";
+}
+
+function something_else () { var pg = "something_else";
+  return "Okay, do you want to be a Seawing, Rainwing, Nightwing, Mudwing, Sandwing or Skywing?";
+}
+
+function girl (){ var pg = "girl";
+  return "Okay, do you want to be a Seawing, Rainwing, Nightwing, Mudwing, Sandwing or Skywing?";
+}
+
+function seawing (){ var dt = "seawing"; return "You wake up in an egg. What will you do? 1. Break out of the egg 2. Decide it's too scary and wait for another time." }
+
 function about() {
-  return "The purpose of this web app is to run simple applications. Epsilon in math is a small positive number, and in our context, it symbolizes infinite curiosity. Founders: Danny Castonguay (your bio here), Pascale (Inspired by French math), Linus (Inspired by the creator of Linux), Ada (Inspired by the first programmer). We design all software products ourselves and publish content on what we learn. Try the following commands: about (this), hello_world, and prime_numbers NUM.";
+  return "The purpose of this web app is to run simple applications. Epsilon in math is a small positive number, and in our context, it symbolizes infinite curiosity. Founders: Danny Castonguay (your bio here), Pascale (Inspired by French math), Linus (Inspired by the creator of Linux), Ada (Inspired by the first programmer). We design all software products ourselves and publish content on what we learn. Try the following commands: about (this), hello_world, dragon, and prime_numbers NUM.";
 }
 
 function hello_world() {
@@ -73,6 +87,11 @@ async function route_command(command, arg) {
     case "about": return about(arg);
     case "hello_world": return hello_world(arg);
     case "prime_numbers": return prime_numbers(arg);
+    case "dragon": return dragon();
+    case "boy": return boy();
+    case "girl": return girl();
+    case "something_else": return something_else();
+    case "seawing": return seawing ();
     case "personal_info": return await personalInfo(arg);
     default: return "Command not found";
   }
