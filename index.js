@@ -1,7 +1,39 @@
-import init, { route_command } from '../pkg/epsilon_academy.js';
+// Define utility functions
+function about() {
+  return "The purpose of this web app is to run simple applications. Epsilon in math is a small positive number, and in our context, it symbolizes infinite curiosity. Founders: Danny Castonguay (your bio here), Pascale (Inspired by French math), Linus (Inspired by the creator of Linux), Ada (Inspired by the first programmer). We design all software products ourselves and publish content on what we learn. Try the following commands: about (this), hello_world, and prime_numbers NUM.";
+}
+
+function hello_world() {
+  return "Hello world";
+}
+
+function prime_numbers(max) {
+  let result = [];
+  for(let i = 2; i <= max; i++) {
+    if (is_prime(i)) {
+      result.push(i);
+    }
+  }
+  return result.join(", ");
+}
+
+function is_prime(n) {
+  for(let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) return false;
+  }
+  return n > 1;
+}
+
+function route_command(command, arg) {
+  switch(command) {
+    case "about": return about();
+    case "hello_world": return hello_world();
+    case "prime_numbers": return prime_numbers(arg);
+    default: return "Command not found";
+  }
+}
 
 async function run() {
-  await init();
 
   const history = [];
   let historyIndex = -1;
@@ -67,7 +99,6 @@ async function run() {
     executeCommand();
   });
 
-  executeCommand();
 
 }
 

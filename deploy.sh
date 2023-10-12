@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Build the project
-wasm-pack build --target web --release
 
 # Commit and push to main
 git checkout main
