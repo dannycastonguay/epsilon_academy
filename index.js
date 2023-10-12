@@ -2,25 +2,30 @@ let inInputMode = false;  // State variable to flag when the terminal is in "inp
 
 async function ask(question) {
   return new Promise((resolve) => {
-    inInputMode = true;  // Set flag to indicate that terminal is in "input mode"
-
+    inInputMode = true;
     const terminal = document.getElementById('terminal');
-    const questionElement = document.createElement('div');
-    questionElement.textContent = question;
-    terminal.appendChild(questionElement);
+    const inputElement = document.getElementById('commandInput');
+    const submitButton = document.getElementById('submitButton');
 
-    const listener = (event) => {
-      if (event.key === 'Enter') {
-        document.getElementById('commandInput').removeEventListener('keydown', listener);
-        resolve(event.target.value);
-        event.target.value = '';
-        inInputMode = false;  // Reset the flag
-      }
+    const div = document.createElement('div');
+    div.textContent = question;
+    terminal.appendChild(div);
+
+    const handleInput = (event) => {
+      if (event.type === 'keydown' && event.key !== 'Enter') return;
+      inputElement.removeEventListener('keydown', handleInput);
+      submitButton.removeEventListener('click', handleInput);
+      resolve(inputElement.value);
+      inputElement.value = '';
+      inInputMode = false;
     };
 
-    document.getElementById('commandInput').addEventListener('keydown', listener);
+    inputElement.addEventListener('keydown', handleInput);
+    submitButton.addEventListener('click', handleInput);
   });
 }
+
+
 
 // Define apps
 async function personalInfo() {
