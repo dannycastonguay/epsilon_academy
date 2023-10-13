@@ -25,8 +25,6 @@ async function ask(question) {
   });
 }
 
-
-
 // Define apps
 async function personalInfo() {
   const name = await ask('What is your name?');
@@ -37,29 +35,26 @@ async function personalInfo() {
     driversLicense = await ask('Do you have a driver\'s license? (yes/no)');
   }
 
-  const confirmation = `Name: ${name}, Age: ${age}`;
-  const licenseInfo = driversLicense ? `, Driver's License: ${driversLicense}` : '';
+  const confirmation = `Your name is ${name} and you are ${age} years old.`;
+  const licenseInfo = driversLicense ? ` Driver's License: ${driversLicense}.` : ' You are too young for a driver\'s license.';
 
   return confirmation + licenseInfo;
 }
 
-function dragon () {
-  return "You have been reincarnated as a dragon are you a boy, a girl, or something_else?"
-}
+async function dragon () {
+  const gender = await ask("You have been reincarnated as a dragon. Are you a [boy], a [girl], or something_else?");
+  const dragonType = (await ask(`Okay, you are a ${gender}. Are a [Seawing], [Rainwing], [Nightwing], [Mudwing], [Sandwing], or [Skywing]?`)).toLowerCase();
 
-function boy () { var pg ="boy";
-  return "Okay, do you want to be a Seawing, Rainwing, Nightwing, Mudwing, Sandwing or Skywing?";
+  switch(dragonType) {
+    case "seawing": return "Something something";
+    case "rainwing": return "Something something";
+    case "nightwing": return "Something something";
+    case "mudwing": return "Something something";
+    case "sandwing": return "Something something";
+    case "skywing": return "Something something";
+    default: return `What's a ${dragonType}? You aren't a even dragon!!`;
+  }
 }
-
-function something_else () { var pg = "something_else";
-  return "Okay, do you want to be a Seawing, Rainwing, Nightwing, Mudwing, Sandwing or Skywing?";
-}
-
-function girl (){ var pg = "girl";
-  return "Okay, do you want to be a Seawing, Rainwing, Nightwing, Mudwing, Sandwing or Skywing?";
-}
-
-function seawing (){ var dt = "seawing"; return "You wake up in an egg. What will you do? 1. Break out of the egg 2. Decide it's too scary and wait for another time." }
 
 function about() {
   return "The purpose of this web app is to run simple applications. Epsilon in math is a small positive number, and in our context, it symbolizes infinite curiosity. Founders: Danny Castonguay (your bio here), Pascale (Inspired by French math), Linus (Inspired by the creator of Linux), Ada (Inspired by the first programmer). We design all software products ourselves and publish content on what we learn. Try the following commands: about (this), hello_world, dragon, and prime_numbers NUM.";
