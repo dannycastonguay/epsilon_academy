@@ -63,6 +63,17 @@ async function run() {
   });
 
   inputElement.addEventListener('keydown', function(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+
+      const currentInput = inputElement.value.trim();
+      const suggestion = commandNames.find(cmd => cmd.startsWith(currentInput));
+
+      if (suggestion) {
+        inputElement.value = suggestion;
+      }
+    }
+
     if (event.key === 'Enter') {
       executeCommand();
     }
