@@ -7,7 +7,7 @@ const commandNames = ["about", "axolotl", "dragon", "helloWorld", "isItGood", "j
 // Object to hold the imported commands
 const commands = {};
 
-// Loop through the array and import each command function into the commands object
+
 for (const commandName of commandNames) {
   const module = await import(`./apps/${commandName}.js`);
   commands[commandName] = module[commandName];
@@ -45,7 +45,7 @@ async function run() {
 
     const output = await route_command(command, joinedParams);
     const outputElement = document.createElement('div');
-    outputElement.textContent = output;
+    outputElement.innerHTML = marked.parse(output); // Use marked to convert
     terminal.appendChild(outputElement);
   }
 
@@ -113,4 +113,6 @@ async function run() {
   document.getElementById('commandInput').focus();
 }
 
-run();
+
+  run();
+
