@@ -60,6 +60,8 @@ async function axolotl() {
   const gender = await ask("You have been reincarnated as an axolotl. Are you a boy, a girl, or something else (for instance: a banana)?");
   const axolotlType = await ask(`Okay, you are a ${gender}. Are you a Wild Type, Leucistic, Albino, Golden, Melanoid, Piebald, Chimera, Copper, Green Fluorescent Protein, or Axanthic?`);
 
+  const = you Are a axolotl knight Your kingdom is being invaded Do you want to fight back or hide
+
   switch (axolotlType.toLowerCase()) {
     case "wild type":
       return "Your skin is natural, with dark pigmentation and specks of lighter color.";
