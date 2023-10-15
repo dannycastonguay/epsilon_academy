@@ -119,6 +119,7 @@ async function route_command(command, arg) {
     case "hello_world": return hello_world(arg);
     case "prime_numbers": return prime_numbers(arg);
     case "dragon": return dragon();
+    case "axolotl": return axolotl();
     case "boy": return boy();
     case "girl": return girl();
     case "axolotl": return axolotl();
