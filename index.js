@@ -41,27 +41,43 @@ async function personalInfo() {
   return confirmation + licenseInfo;
 }
 
-async function is_it_good(){
-await ask ("Please rate us 1-10")
-switch (is_it_good){
-case "1": return "Oh, I'm sorry we're not up to your standards."  
-}  
-} 
-
+async function is_it_good() {
+  const rating = await ask("Please rate us 1-10");
+  if (rating === '1') {
+    return "Oh, I'm sorry we're not up to your standards.";
+  } else {
+    return `Thanks for rating us ${rating}, which is more than 1`;
+  }
+}
 
 function joke() {
-const j = Math.floor(Math.random() * 11) + 1;
-if (j === 1){return "Knock, knock. Who's there? Copycat. Copycat who? Copycat who?";}  // You can add more conditions and jokes for other numbers here
-if (j === 2){return "Why was the math book sad? Because it had too many problems."}   
-if (j === 3){return "How do you organize a space party? You “planet”!"}
-if (j === 4){return "What do you call a fish with no eyes? Fsh."}
-if (j === 5){return "How does a penguin build its house? Igloos it together."}
-if (j === 6){return "What did one wall say to the other wall? “I'll meet you at the corner!”"}
-if (j === 7){return "Why did the scarecrow win an award? Because he was outstanding in his field!"}
-if (j === 8){return "What kind of tree fits in your hand? A palm tree."}
-if (j === 9){return "What's the best thing about Switzerland? I don't know, but the flag is a big plus."}
-if (j === 10){return "Why do we tell actors to “break a leg?”Because every play has a cast"}
-if (j === 11){return "Hah! Jokes on YOU."}
+  const j = Math.floor(Math.random() * 11) + 1;
+  switch (j) {
+    case 1:
+      return "Knock, knock. Who's there? Copycat. Copycat who? Copycat who?";
+    case 2:
+      return "Why was the math book sad? Because it had too many problems.";
+    case 3:
+      return "How do you organize a space party? You “planet”!";
+    case 4:
+      return "What do you call a fish with no eyes? Fsh.";
+    case 5:
+      return "How does a penguin build its house? Igloos it together.";
+    case 6:
+      return "What did one wall say to the other wall? “I'll meet you at the corner!”";
+    case 7:
+      return "Why did the scarecrow win an award? Because he was outstanding in his field!";
+    case 8:
+      return "What kind of tree fits in your hand? A palm tree.";
+    case 9:
+      return "What's the best thing about Switzerland? I don't know, but the flag is a big plus.";
+    case 10:
+      return "Why do we tell actors to “break a leg?” Because every play has a cast";
+    case 11:
+      return "Hah! Jokes on YOU.";
+    default:
+      return "Invalid number.";
+  }
 }
 
 async function dragon() {
@@ -99,10 +115,11 @@ async function dragon() {
     console.log(result);
   } else {
     const newDragonType = (await ask("Are you a [Seawing], [Rainwing], [Nightwing], [Mudwing], [Sandwing], or [Skywing]?")).toLowerCase();
-    dragon(newDragonType); // Recursive call with the new choice
+    dragon(newDragonType); // Recursive call with the new choice // @p: wow you are using recursions!
   }
 }
 
+// @p: this is hilarious that you call story from inside dragon. There's a more elegant way to achieve your objectives
 async function story(gender, dragonType) {
   const intro = (await ask(`You wake up as a ${gender} ${dragonType} dragon in your egg.\nWhat will you do?\n[1] Break out of the egg\n[2] Stay in the egg`)).trim();
 
@@ -112,15 +129,10 @@ async function story(gender, dragonType) {
   }
 }
 
-
-// You can continue adding more story functions with different options as needed.
-
-// Start the interaction without calling the dragon function
-
 function about() {
   return "The purpose of this web app is to run simple applications. Epsilon in math is a small positive number, and in our context, it symbolizes infinite curiosity. Founders: Danny Castonguay (your bio here), Pascale (Inspired by French math), Linus (Inspired by the creator of Linux), Ada (Inspired by the first programmer). We design all software products ourselves and publish content on what we learn. Try the following commands: about (this), hello_world, dragon, joke, and prime_numbers NUM.";
 }
-  
+
 async function axolotl() {
   const gender = await ask("You have been reincarnated as an axolotl. Are you a boy, a girl, or something else (for instance: a banana)?");
   const axolotlType = await ask(`Okay, you are a ${gender}. Are you a Wild Type, Leucistic, Albino, Golden, Melanoid, Piebald, Chimera, Copper, Green Fluorescent Protein, or Axanthic?`);
