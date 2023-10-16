@@ -52,7 +52,7 @@ async function dragon () {
     case "mudwing": return "Something something";
     case "sandwing": return "Something something";
     case "skywing": return "Something something";
-    default: return `What's a ${dragonType}? You aren't a even dragon!!`;
+    default: return `What's a ${dragonType}? You aren't a even dragon!!`;hjbfdhhjk
   }
 }
 
@@ -83,8 +83,48 @@ async function axolotl() {
       return "You lack yellow pigment, giving you a cool grayish appearance, like a silver axolotl!";
     default:
       return `What's a ${axolotlType}? You're not even an axolotl!!`;
+  }async function axolotlKnightAdventure() {
+    console.log("You are Sir Axolotl, a valiant knight of the aquatic realm. Your mission awaits.");
+    
+    const startChoice = await ask("Do you want to [Explore] your underwater kingdom or [Embark] on a quest?");
+  
+    if (startChoice.toLowerCase() === "explore") {
+      await ask("You swim through the crystal-clear waters of your kingdom, discovering hidden treasures and vibrant corals. What's your next move? [Visit] the coral palace or [Search] for sunken shipwrecks?");
+      
+      const exploreChoice = await ask("[Visit] or [Search]?");
+      
+      if (exploreChoice.toLowerCase() === "visit") {
+        return "You visit the grand coral palace, where the queen honors you with a feast fit for a knight. Your reputation as a loyal and adventurous axolotl knight grows.";
+      } else {
+        return "You embark on a thrilling journey to find sunken shipwrecks. Along the way, you encounter fascinating creatures and recover lost treasures, becoming a legendary axolotl knight of the deep.";
+      }
+    } else {
+      await ask("You choose to embark on a quest! What kind of quest would you like to undertake? [Rescue] a stranded fish, [Defend] your kingdom from invaders, or [Search] for a legendary treasure?");
+      
+      const questChoice = await ask("[Rescue], [Defend], or [Search]?");
+      
+      switch (questChoice.toLowerCase()) {
+        case "rescue":
+          return "You rescue a stranded fish and earn the gratitude of your aquatic neighbors. Your chivalrous deeds as Sir Axolotl are widely celebrated.";
+        case "defend":
+          return "You defend your kingdom from invaders with honor and valor. Your bravery inspires all axolotls, and you become the protector of the realm.";
+        case "search":
+          return "You embark on a quest to find a legendary treasure hidden in the depths. Your determination pays off, and you return as a wealthy and renowned axolotl knight.";
+        default:
+          return "You seem unsure of your quest, and your adventure remains undecided. Perhaps another choice awaits you.";
+      }
+    }
   }
+  
+  // Start the axolotl knight adventure
+  axolotlKnightAdventure().then((result) => {
+    console.log(result);
+  });
+  
 }
+
+
+
 
 
 function about() {
