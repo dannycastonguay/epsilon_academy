@@ -1,13 +1,23 @@
 import { ask } from '../common.js';
 
 export async function dragon() {
-  const gender = await ask("You have been reincarnated as a dragon. Are you a [boy], a [girl], or something_else?");
+  const gender = await ask(`
+  # Dragon 🐲
+
+  ## Character creation
+
+  ### Gender
+
+  You have been reincarnated as a dragon. Are you a [boy], a [girl], or something else?`);
 
   let happy = "no"
   let dragonType;
 
   while(happy !== "yes") {
-    dragonType = (await ask(`Okay, you are a ${gender}. Are you a [Seawing], [Rainwing], [Nightwing], [Mudwing], [Sandwing], or [Skywing]?`)).toLowerCase();
+    dragonType = (await ask(`
+### Dragon type
+
+Okay, you are a ${gender}. Are you a [Seawing], [Rainwing], [Nightwing], [Mudwing], [Sandwing], or [Skywing]?`)).toLowerCase();
 
     let description;
 
@@ -37,12 +47,20 @@ export async function dragon() {
     happy = (await ask(`You have chosen to be a ${dragonType}.\n${description}\nAre you sure you want to be this dragon [yes] or [no]`)).toLowerCase();
   }
 
-  const intro = (await ask(`You wake up as a ${gender} ${dragonType} dragon in your egg. What will you do? [1] Break out of the egg [2] Stay in the egg`));
+  const intro = (await ask(`
+  ## The story begins
+
+  You wake up as a ${gender} ${dragonType} dragon in your egg. What will you do? [1] Break out of the egg [2] Stay in the egg`));
 
   switch (intro) {
-    case "1" : return "You burst out of your egg, floating in the water. Your mother picks you up into her arms. THE END.";
-    case "2" : return "You decide it's too scary and wait inside the egg for a while. THE END.";
-    default: return "That's not a story option. Bye!"
+    case "1" : return `You burst out of your egg, floating in the water. Your mother picks you up into her arms.
+
+    # THE END.`;
+    case "2" : return `You decide it's too scary and wait inside the egg for a while.
+
+    # THE END.`;
+    default: return `# ERRORRRRRRRR
+    That's not a story option. Bye!`;
   }
 
 }

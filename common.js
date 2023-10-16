@@ -8,9 +8,9 @@ export async function ask(question) {
       const inputElement = document.getElementById('commandInput');
       const submitButton = document.getElementById('submitButton');
 
-      const div = document.createElement('div');
-      div.textContent = question;
-      terminal.appendChild(div);
+      const outputElement = document.createElement('div');
+      outputElement.innerHTML = marked.parse(question); // Use marked to convert
+      terminal.appendChild(outputElement);
 
       const handleInput = (event) => {
         if (event.type === 'keydown' && event.key !== 'Enter') return;
