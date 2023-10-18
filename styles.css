@@ -13,6 +13,7 @@ body, html {
 #terminal {
   padding: 20px;
   background-color: #FFFFFF;
+  max-height: calc(100vh - 60px);
 }
 
 #input-box {
