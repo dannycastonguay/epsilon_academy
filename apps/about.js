@@ -1,7 +1,7 @@
 import { ask, commandNames } from '../common.js';
 
 export async function about() {
-  const commandList = commandNames.map(cmd => `\`${cmd}\``).join('\n- ');
+  const commandList = commandNames.map(cmd => `[${cmd}](cmd://${cmd})`).join('\n- ');
 
   return `
 # Epsilon Academy: Ignite Your Infinite Curiosity

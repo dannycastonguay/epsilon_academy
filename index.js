@@ -1,12 +1,7 @@
-import { inInputMode, ask } from './common.js';
-import { helloWorld } from './apps/helloWorld.js'
-
-// Define your command names directly
-const commandNames = ["about", "axolotl", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers", "wordle"];
+import { inInputMode, ask, preprocessMarkdown, commandNames } from './common.js';
 
 // Object to hold the imported commands
 const commands = {};
-
 
 for (const commandName of commandNames) {
   const module = await import(`./apps/${commandName}.js`);
@@ -18,7 +13,10 @@ async function route_command(command, arg) {
   if (commands[command]) {
     return await commands[command](arg);
   }
-  return 'Command not found';
+  return `
+  Command not found 🤔
+  
+  Available commands: ${commandNames.map(cmd => `\`${cmd}\``).join(', ')}.`;
 }
 
 // Main terminal
@@ -26,13 +24,13 @@ async function run() {
   const history = [];
   let historyIndex = -1;
 
-  async function executeCommand() {
+  async function executeCommand(cmd = '') {
     if (inInputMode) {
       return;  // Exit the function if in "input mode"
     }
     const terminal = document.getElementById('terminal');
     const inputElement = document.getElementById('commandInput');
-    const input = inputElement.value;
+    const input = cmd || inputElement.value;
     inputElement.value = '';
     history.push(input);
     historyIndex = history.length;
@@ -42,10 +40,10 @@ async function run() {
     const commandElement = document.createElement('div');
     commandElement.textContent = '> ' + input;
     terminal.appendChild(commandElement);
-
+    
     const output = await route_command(command, joinedParams);
     const outputElement = document.createElement('div');
-    outputElement.innerHTML = marked.parse(output); // Use marked to convert
+    outputElement.innerHTML = marked.parse(preprocessMarkdown(output)); // Use marked to convert
     terminal.appendChild(outputElement);
     terminal.scrollTop = terminal.scrollHeight;  // Keeps terminal scrolled to the bottom
   }
@@ -55,7 +53,7 @@ async function run() {
 
   submitButton.className = 'inactive';
 
-  inputElement.addEventListener('input', function() {
+  inputElement.addEventListener('input', function () {
     if (inputElement.value === '') {
       submitButton.className = 'inactive';
     } else {
@@ -63,7 +61,7 @@ async function run() {
     }
   });
 
-  inputElement.addEventListener('keydown', function(event) {
+  inputElement.addEventListener('keydown', function (event) {
     if (event.key === 'Tab') {
       event.preventDefault();
 
@@ -98,8 +96,8 @@ async function run() {
       inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length);
     }
   });
-
-  submitButton.addEventListener('click', function() {
+  
+  submitButton.addEventListener('click', function () {
     executeCommand();
   });
 
@@ -112,8 +110,16 @@ async function run() {
   executePredefinedCommand('about');
 
   document.getElementById('commandInput').focus();
+
+  function handleButtonClick(event) {
+    if (event.target.className === 'command-button') {
+      executeCommand(event.target.dataset.cmd);
+    }
+  }
+
+  document.getElementById('terminal').addEventListener('click', handleButtonClick);
+
 }
 
-
-  run();
+run();
 

@@ -8,7 +8,7 @@ export async function dragon() {
 
   ### Gender
 
-  You have been reincarnated as a dragon. Are you a [boy], a [girl], or something else?`);
+  You have been reincarnated as a dragon. Are you a [boy](cmd://boy), a [girl](cmd://girl), or something else?`);
 
   let happy = "no"
   let dragonType;
@@ -17,10 +17,10 @@ export async function dragon() {
     dragonType = (await ask(`
 ### Dragon type
 
-Okay, you are a ${gender}. Are you a [Seawing], [Rainwing], [Nightwing], [Mudwing], [Sandwing], or [Skywing]?`)).toLowerCase();
+Okay, you are a ${gender}. Are you a [Seawing](cmd://seawing), [Rainwing](cmd://rainwing), [Nightwing](cmd://nightwing), [Mudwing](cmd://mudwing), [Sandwing](cmd://sandwing), or [Skywing](cmd://skywing)?`)).toLowerCase();
 
     let description;
-
+    alert(dragonType);
     switch (dragonType) {
       case "seawing":
         description = "A seawing is a dragon that can breathe underwater, they have glowing scales to communicate.";
@@ -44,19 +44,19 @@ Okay, you are a ${gender}. Are you a [Seawing], [Rainwing], [Nightwing], [Mudwin
         description = `What's a ${dragonType}? You aren't even a dragon!!`;
     }
 
-    happy = (await ask(`You have chosen to be a ${dragonType}.\n${description}\nAre you sure you want to be this dragon [yes] or [no]`)).toLowerCase();
+    happy = (await ask(`You have chosen to be a ${dragonType}.\n${description}\nAre you sure you want to be this dragon [yes](cmd://yes) or [no](cmd://no)`)).toLowerCase();
   }
 
   const intro = (await ask(`
   ## The story begins
 
-  You wake up as a ${gender} ${dragonType} dragon in your egg. What will you do? [1] Break out of the egg [2] Stay in the egg`));
+  You wake up as a ${gender} ${dragonType} dragon in your egg. What will you do? [Break](cmd://break) out of the egg or [Stay](cmd://stay) in the egg`));
 
   switch (intro) {
-    case "1" : return `You burst out of your egg, floating in the water. Your mother picks you up into her arms.
+    case "break" : return `You burst out of your egg, floating in the water. Your mother picks you up into her arms.
 
     # THE END.`;
-    case "2" : return `You decide it's too scary and wait inside the egg for a while.
+    case "stay" : return `You decide it's too scary and wait inside the egg for a while.
 
     # THE END.`;
     default: return `# ERRORRRRRRRR

@@ -49,6 +49,23 @@ body, html {
   color: white;
 }
 
+.command-button {
+  background-color: #AEDFF7;
+  color: #333;
+  border: 1px solid #AEDFF7;
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.command-button:hover {
+  background-color: #8CCBD4;
+  border-color: #8CCBD4;
+}
+
 
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
@@ -62,3 +79,4 @@ body, html {
     font-size: 24px;  /* Increase as needed */
   }
 }
+
