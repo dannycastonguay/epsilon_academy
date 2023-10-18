@@ -13,6 +13,6 @@
     "browser-sync": "^2.29.3"
   },
   "devDependencies": {
-    "uglify-js": "^3.17.4"
+    "terser": "^5.22.0"
   }
 }

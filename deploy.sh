@@ -10,32 +10,26 @@ git push origin main
 git checkout gh-pages
 git reset --hard main
 
-# Install uglify-js if not installed
-if ! command -v uglifyjs &> /dev/null; then
-  npm install -g uglify-js
-fi
-
 # Minify JS files in root and update index.html
 for file in *.js; do
   min_file="min_$file"
-  uglifyjs "$file" -o "$min_file"
+  ./node_modules/.bin/terser "$file" -o "$min_file"
   sed -i '' "s/$file/$min_file/g" index.html
 done
 
 # Minify JS files in apps and update index.html
 for file in apps/*.js; do
   min_file="apps/min_$(basename "$file")"
-  uglifyjs "$file" -o "$min_file"
+  ./node_modules/.bin/terser "$file" -o "$min_file"
   sed -i '' "s/$(basename "$file")/min_$(basename "$file")/g" index.html
 done
 
-# Add, commit, and push everything
-git add min_*.js apps/min_*.js index.html
+git add .
 git commit -m "Minify JS and update index.html for GitHub Pages"
 git push -f origin gh-pages
 
 # Switch back to main
 git checkout main
 
-# Open GitHub Pages URL
+# Open the default web browser to navigate to GitHub
 open 'https://github.com/dannycastonguay/epsilon_academy'
