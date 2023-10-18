@@ -13,6 +13,6 @@
     "browser-sync": "^2.29.3"
   },
   "devDependencies": {
-    "terser": "^5.22.0"
+    "esbuild": "^0.19.5"
   }
 }

@@ -1,35 +1,44 @@
 #!/bin/bash
 
-# Commit and push to main
+# Checkout to main branch and pull latest changes
 git checkout main
-git add .
-git commit -m "Update main branch"
+git pull origin main
+
+# Minify main JavaScript file
+./node_modules/.bin/esbuild index.js --bundle --minify --outfile=index.min.js
+
+# Loop through and minify each JavaScript file in the apps directory
+for file in apps/*.js; do
+  ./node_modules/.bin/esbuild "$file" --bundle --minify --outfile="${file%.js}.min.js"
+done
+
+# Minify CSS
+./node_modules/.bin/esbuild styles.css --loader=css --minify --outfile=styles.min.css
+
+# Add and commit changes
+git add -A
+git commit -m "Minify JS and CSS for deployment"
+
+# Push changes to main branch
 git push origin main
 
-# Make gh-pages an exact copy of main
+# Checkout to gh-pages branch and pull the latest changes
 git checkout gh-pages
-git reset --hard main
+git pull origin gh-pages
 
-# Minify JS files in root and update index.html
-for file in *.js; do
-  min_file="min_$file"
-  ./node_modules/.bin/terser "$file" -o "$min_file"
-  sed -i '' "s/$file/$min_file/g" index.html
-done
+# Copy minified files to gh-pages branch
+cp index.min.js index.min.js
+cp styles.min.css styles.min.css
 
-# Minify JS files in apps and update index.html
-for file in apps/*.js; do
-  min_file="apps/min_$(basename "$file")"
-  ./node_modules/.bin/terser "$file" -o "$min_file"
-  sed -i '' "s/$(basename "$file")/min_$(basename "$file")/g" index.html
-done
+# Copy minified app files to gh-pages/apps directory
+cp apps/*.min.js apps/
 
-git add .
-git commit -m "Minify JS and update index.html for GitHub Pages"
-git push -f origin gh-pages
+# Add and commit changes
+git add -A
+git commit -m "Deploy minified JS and CSS to GitHub Pages"
 
-# Switch back to main
+# Push changes to gh-pages branch
+git push origin gh-pages
+
+# Switch back to main branch
 git checkout main
-
-# Open the default web browser to navigate to GitHub
-open 'https://github.com/dannycastonguay/epsilon_academy'
