@@ -1,19 +1,13 @@
 import { ask } from '../common.js';
 
 export async function wordle() {
-
-
     // Step 1: Fetch word list from URL
-    fetch('https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt')
-        .then(response => response.text())
-        .then(text => {
-            const allWords = text.toLowerCase().split('\n');
+    const response = await fetch('https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt');
+    const text = await response.text();
+    const allWords = text.toLowerCase().split('\n');
 
-            // Step 2: Filter for 5-letter words
-            const fiveLetterWords = allWords.filter(word => word.length === 5);
-
-            solveWordle(fiveLetterWords);
-        });
+    // Step 2: Filter for 5-letter words
+    const fiveLetterWords = allWords.filter(word => word.length === 5);
 
     function solveWordle(fiveLetterWords) {
         let wordPool = [...fiveLetterWords];
@@ -26,14 +20,17 @@ export async function wordle() {
             const topNWords = getTopNWords(sample, 10);
 
             // Step 5: Prompt user
-
             const remainingWords = wordPool.length;
+
+            if (remainingWords === 0) { return(`Sorry: the wordle solver ran out of words! 🫠`)}
+            
             const userWord = prompt(`Enter one of the suggested words or any 5-letter word: ${topNWords.join(', ')}. Words left: ${remainingWords}`).toLowerCase();
             const feedback = prompt("Enter feedback (G: correct position, Y: wrong position, X: not found)").toLowerCase();
 
             // Step 6: Check for win condition
             if (feedback === "ggggg") {
                 alert("Solved!");
+                return(` → ${userWord} ←`)
                 break;
             }
 
@@ -95,7 +92,6 @@ export async function wordle() {
         });
     }
 
-
     function getTopNWords(array, N) {
         let frequencyMap = Array.from({ length: 5 }, () => ({}));
 
@@ -122,4 +118,5 @@ export async function wordle() {
         return scoredWords.slice(0, N).map(item => item.word);
     }
 
+    return solveWordle(fiveLetterWords);
 }

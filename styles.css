@@ -14,6 +14,7 @@ body, html {
   padding: 20px;
   background-color: #FFFFFF;
   max-height: calc(100vh - 60px);
+  overflow-y: auto;
 }
 
 #input-box {
