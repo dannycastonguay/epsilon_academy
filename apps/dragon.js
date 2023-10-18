@@ -20,7 +20,6 @@ export async function dragon() {
 Okay, you are a ${gender}. Are you a [Seawing](cmd://seawing), [Rainwing](cmd://rainwing), [Nightwing](cmd://nightwing), [Mudwing](cmd://mudwing), [Sandwing](cmd://sandwing), or [Skywing](cmd://skywing)?`)).toLowerCase();
 
     let description;
-    alert(dragonType);
     switch (dragonType) {
       case "seawing":
         description = "A seawing is a dragon that can breathe underwater, they have glowing scales to communicate.";

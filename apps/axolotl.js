@@ -1,8 +1,8 @@
 import { ask } from '../common.js';
 
 export async function axolotl() {
-    const gender = await ask("You have been reincarnated as an axolotl. Are you a boy, a girl, or something else (for instance: a banana)?");
-    const axolotlType = await ask(`Okay, you are a ${gender}. Are you a Wild Type, Leucistic, Albino, Golden, Melanoid, Piebald, Chimera, Copper, Green Fluorescent Protein, or Axanthic?`);
+    const gender = await ask("You have been reincarnated as an axolotl. Are you a [boy](cmd://boy), a [girl](cmd://girl), or something else (for instance: a [banana](cmd://banana))?");
+    const axolotlType = await ask(`Okay, you are a ${gender}. Are you a [Wild Type](cmd://wild type), [Leucistic](cmd://leucistic), [Albino](cmd://albino), [Golden](cmd://golden), [Melanoid](cmd://melanoid), [Piebald](cmd://piebald), [Chimera](cmd://chimera), [Copper](cmd://copper), [Green Fluorescent Protein](cmd://green fluorescent protein), or [Axanthic](cmd://axanthic)?`);
 
     switch (axolotlType.toLowerCase()) {
         case "wild type":

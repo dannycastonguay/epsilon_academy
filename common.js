@@ -34,8 +34,8 @@ export async function ask(question) {
       inInputMode = false;
     };
 
-    terminal.addEventListener('click', handleInput);
     inputElement.addEventListener('keydown', handleInput);
+    submitButton.addEventListener('click', handleInput);
   });
 }
 
