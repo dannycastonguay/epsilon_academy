@@ -31,5 +31,6 @@ We **design** all of our software products and **publish content** based on what
 - \`joke\`
 - \`personalInfo\`
 - \`primeNumbers\`
+- \`wordle\`
   `;
 }

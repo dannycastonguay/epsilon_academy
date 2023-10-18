@@ -2,7 +2,7 @@ import { inInputMode, ask } from './common.js';
 import { helloWorld } from './apps/helloWorld.js'
 
 // Define your command names directly
-const commandNames = ["about", "axolotl", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers"];
+const commandNames = ["about", "axolotl", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers", "wordle"];
 
 // Object to hold the imported commands
 const commands = {};

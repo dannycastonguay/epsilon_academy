@@ -1,88 +1,125 @@
-fetch("https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt")
-    .then(response => response.text())
-    .then(text => {
-        const allWords = text.split("\n");
-        const wordDict = allWords.filter(word => word.length === 5);
-        wordleSolver(wordDict);
-    });
+import { ask } from '../common.js';
 
-const logCache = {};
+export async function wordle() {
 
-function log2Cached(n) {
-    if (!logCache.hasOwnProperty(n)) {
-        logCache[n] = Math.log2(n);
-    }
-    return logCache[n];
-}
 
-function calcEntropy(guess, possibleWords, total) {
-    const freq = {};
-    for (const word of possibleWords) {
-        const result = Array.from({ length: 5 }, (_, i) =>
-            word[i] === guess[i] ? 'G' : guess.includes(word[i]) ? 'O' : 'X'
-        ).join('');
+    // Step 1: Fetch word list from URL
+    fetch('https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt')
+        .then(response => response.text())
+        .then(text => {
+            const allWords = text.toLowerCase().split('\n');
 
-        freq[result] = (freq[result] || 0) + 1;
-    }
+            // Step 2: Filter for 5-letter words
+            const fiveLetterWords = allWords.filter(word => word.length === 5);
 
-    return -Object.values(freq).reduce((acc, count) =>
-        acc + (count / total) * log2Cached(count / total), 0
-    );
-}
+            solveWordle(fiveLetterWords);
+        });
 
-function wordleSolver(wordDict) {
-    let possibleWords = new Set(wordDict);
-    const orangeIndices = new Set();
+    function solveWordle(fiveLetterWords) {
+        let wordPool = [...fiveLetterWords];
 
-    while (true) {
-        const sampleSize = Math.min(500, possibleWords.size);
-        const sampleWords = Array.from(possibleWords).sort(() => Math.random() - 0.5).slice(0, sampleSize);
+        while (true) {
+            // Step 3: Random sample of 500 words or the length of the set
+            const sample = getRandomSample(wordPool, 500);
 
-        const validSampleWords = sampleWords.filter(word =>
-            Array.from(orangeIndices).every(i => word[i] !== word[i])
-        );
+            // Step 4: Top 10 words that reduce entropy
+            const topNWords = getTopNWords(sample, 10);
 
-        const bestGuess = validSampleWords.reduce((maxWord, word) => {
-            const entropy = calcEntropy(word, validSampleWords, validSampleWords.length);
-            return entropy > calcEntropy(maxWord, validSampleWords, validSampleWords.length) ? word : maxWord;
-        }, validSampleWords[0]);
+            // Step 5: Prompt user
 
-        const userInput = prompt(`Sample guesses: ${validSampleWords.slice(0, 10).join(', ')}. \n Enter your guess and result (e.g. apple GGOXX):`);
+            const remainingWords = wordPool.length;
+            const userWord = prompt(`Enter one of the suggested words or any 5-letter word: ${topNWords.join(', ')}. Words left: ${remainingWords}`).toLowerCase();
+            const feedback = prompt("Enter feedback (G: correct position, Y: wrong position, X: not found)").toLowerCase();
 
-        if (!userInput || !userInput.includes(' ')) {
-            alert("Invalid input format. Please enter a guess and result separated by a space.");
-            continue;
-        }
-
-        const [guess, result] = userInput.split(' ');
-
-        if (!possibleWords.has(guess) || (result && result.length !== 5)) {
-            alert("Invalid input. Try again.");
-            continue;
-        }
-
-        possibleWords.delete(guess);
-
-        const greenIndices = result.split('').map((c, i) => c === 'G' ? i : null).filter(i => i !== null);
-        possibleWords = new Set(Array.from(possibleWords).filter(word =>
-            greenIndices.every(i => word[i] === guess[i])
-        ));
-
-        orangeIndices.clear();
-        for (let i = 0; i < result.length; i++) {
-            if (result[i] === 'O') {
-                orangeIndices.add(i);
+            // Step 6: Check for win condition
+            if (feedback === "ggggg") {
+                alert("Solved!");
+                break;
             }
-        }
 
-        const grayLetters = result.split('').map((c, i) => c === 'X' ? guess[i] : null).filter(c => c !== null);
-        possibleWords = new Set(Array.from(possibleWords).filter(word =>
-            !grayLetters.some(c => word.includes(c))
-        ));
+            // Step 7: Filter word pool based on feedback
+            wordPool = filterWords(wordPool, userWord, feedback);
 
-        if (result === 'GGGGG') {
-            alert("Game won!");
-            break;
+            // Step 8 is implicit (loop continues)
         }
     }
+
+    function getRandomSample(array, n) {
+        // Create a copy of the original array
+        const arrCopy = [...array];
+
+        // The array to store the random sample
+        let sample = [];
+
+        // Loop until sample contains n elements
+        for (let i = 0; i < n; i++) {
+            if (arrCopy.length === 0) {
+                break;
+            }
+            // Generate a random index
+            const randomIndex = Math.floor(Math.random() * arrCopy.length);
+
+            // Add the element at the random index to the sample
+            sample.push(arrCopy[randomIndex]);
+
+            // Remove the chosen element from arrCopy
+            arrCopy.splice(randomIndex, 1);
+        }
+
+        return sample;
+    }
+
+    function filterWords(wordPool, userWord, feedback) {
+        return wordPool.filter(word => {
+            for (let i = 0; i < 5; i++) {
+                const fb = feedback[i];
+                const uw = userWord[i];
+                const w = word[i];
+
+                // Check for g: Letter in correct position
+                if (fb === 'g' && uw !== w) {
+                    return false;
+                }
+
+                // Check for x: Letter not found in word
+                if (fb === 'x' && word.includes(uw)) {
+                    return false;
+                }
+
+                // Check for y: Letter in word but not in correct position
+                if (fb === 'y' && (!word.includes(uw) || uw === w)) {
+                    return false;
+                }
+            }
+            return true;
+        });
+    }
+
+
+    function getTopNWords(array, N) {
+        let frequencyMap = Array.from({ length: 5 }, () => ({}));
+
+        // Calculate frequency of each letter at each position
+        array.forEach(word => {
+            for (let i = 0; i < 5; i++) {
+                const char = word[i];
+                frequencyMap[i][char] = (frequencyMap[i][char] || 0) + 1;
+            }
+        });
+
+        // Score words based on frequency of their letters at each position
+        const scoredWords = array.map(word => {
+            let score = 0;
+            for (let i = 0; i < 5; i++) {
+                const char = word[i];
+                score += frequencyMap[i][char];
+            }
+            return { word, score };
+        });
+
+        // Sort by score and take top N words
+        scoredWords.sort((a, b) => b.score - a.score);
+        return scoredWords.slice(0, N).map(item => item.word);
+    }
+
 }
