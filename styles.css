@@ -68,7 +68,7 @@ body, html {
 
 
 /* Media Query for Mobile Devices */
-@media (max-width: 480px) {
+@media (max-width: 375px) {
   #submitButton {
     width: 60px;
     height: 60px;
