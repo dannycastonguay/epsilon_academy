@@ -10,18 +10,23 @@ git push origin main
 git checkout gh-pages
 git reset --hard main
 
+# Install uglify-js if not installed
+if ! command -v uglifyjs &> /dev/null; then
+  npm install -g uglify-js
+fi
+
 # Minify JS files in root and update index.html
 for file in *.js; do
   min_file="min_$file"
   uglifyjs "$file" -o "$min_file"
-  sed -i "s/$file/$min_file/g" index.html
+  sed -i '' "s/$file/$min_file/g" index.html
 done
 
 # Minify JS files in apps and update index.html
 for file in apps/*.js; do
   min_file="apps/min_$(basename "$file")"
   uglifyjs "$file" -o "$min_file"
-  sed -i "s/$(basename "$file")/min_$(basename "$file")/g" index.html
+  sed -i '' "s/$(basename "$file")/min_$(basename "$file")/g" index.html
 done
 
 # Add, commit, and push everything
