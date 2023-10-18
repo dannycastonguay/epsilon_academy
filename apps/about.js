@@ -1,6 +1,8 @@
-import { ask } from '../common.js';
+import { ask, commandNames } from '../common.js';
 
 export async function about() {
+  const commandList = commandNames.map(cmd => `\`${cmd}\``).join('\n- ');
+
   return `
 # Epsilon Academy: Ignite Your Infinite Curiosity
 
@@ -22,14 +24,6 @@ We are learning about design, math, and science by buildling a product - this we
 
 ## Commands to Try
 
-- \`about\`
-- \`axolotl\`
-- \`dragon\`
-- \`helloWorld\`
-- \`isItGood\`
-- \`joke\`
-- \`personalInfo\`
-- \`primeNumbers\`
-- \`wordle\`
+- ${commandList}
   `;
 }
