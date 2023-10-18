@@ -40,7 +40,7 @@ async function run() {
     const commandElement = document.createElement('div');
     commandElement.textContent = '> ' + input;
     terminal.appendChild(commandElement);
-    
+
     const output = await route_command(command, joinedParams);
     const outputElement = document.createElement('div');
     outputElement.innerHTML = marked.parse(preprocessMarkdown(output)); // Use marked to convert
@@ -113,7 +113,10 @@ async function run() {
 
   function handleButtonClick(event) {
     if (event.target.className === 'command-button') {
-      executeCommand(event.target.dataset.cmd);
+      inputElement.value = event.target.dataset.cmd;
+      submitButton.className = 'active';
+      document.getElementById('commandInput').focus();
+      //executeCommand(event.target.dataset.cmd);
     }
   }
 
