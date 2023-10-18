@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "browser-sync": "^2.29.3"
+  },
+  "devDependencies": {
+    "uglify-js": "^3.17.4"
   }
 }
