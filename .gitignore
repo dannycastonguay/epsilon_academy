@@ -1,3 +1,33 @@
+# Node.js dependencies
 node_modules/
-.DS_Store
+
+# Logs
 *.log
+
+# Environment variables
+.env
+
+# IDE and Editor folders
+.idea/
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Build and cache directories
+build/
+dist/
+.cache/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# End of .gitignore

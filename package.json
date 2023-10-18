@@ -1,0 +1,15 @@
+{
+  "name": "epsilon_academy",
+  "version": "1.0.0",
+  "description": "Check out [epsilon.academy](https://epsilon.academy).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.29.3"
+  }
+}
