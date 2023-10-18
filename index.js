@@ -47,6 +47,7 @@ async function run() {
     const outputElement = document.createElement('div');
     outputElement.innerHTML = marked.parse(output); // Use marked to convert
     terminal.appendChild(outputElement);
+    terminal.scrollTop = terminal.scrollHeight;  // Keeps terminal scrolled to the bottom
   }
 
   const inputElement = document.getElementById('commandInput');
