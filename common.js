@@ -1,11 +1,11 @@
 // common.js
 
+// List your command names directly
+export const commandNames = ["about", "axolotl", "convert", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers", "wordle"];
+
 // State variable to indicate whether the terminal is in "input mode".
 // Useful for knowing whether the terminal is waiting for user input.
 export let inInputMode = false;
-
-// Define your command names directly
-export const commandNames = ["about", "axolotl", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers", "wordle"];
 
 /**
  * Asynchronously ask a question and wait for the user to respond.
@@ -21,6 +21,7 @@ export async function ask(question) {
     const submitButton = document.getElementById('submitButton');
 
     const outputElement = document.createElement('div');
+    //outputElement.innerHTML = preprocessMarkdown(question); // if offline
     outputElement.innerHTML = marked.parse(preprocessMarkdown(question)); // Use marked to convert
     terminal.appendChild(outputElement);
     terminal.scrollTop = terminal.scrollHeight;  // Keeps terminal scrolled to the bottom
@@ -49,7 +50,7 @@ export async function ask(question) {
  *                     replaced by HTML button elements.
  */
 export function preprocessMarkdown(markdownString) {
-  return markdownString.replace(/\[([^\]]+)\]\(cmd:\/\/([^\)]+)\)/g, (match, label, cmd) => {
+  return markdownString.toString().replace(/\[([^\]]+)\]\(cmd:\/\/([^\)]+)\)/g, (match, label, cmd) => {
     return `<button class="command-button" data-cmd="${cmd}">${label}</button>`;
   });
 }

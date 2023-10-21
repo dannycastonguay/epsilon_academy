@@ -43,6 +43,8 @@ async function run() {
 
     const output = await route_command(command, joinedParams);
     const outputElement = document.createElement('div');
+    //function parseNoInternet(text) { return text }
+    //outputElement.innerHTML = parseNoInternet(preprocessMarkdown(output)); // If offline
     outputElement.innerHTML = marked.parse(preprocessMarkdown(output)); // Use marked to convert
     terminal.appendChild(outputElement);
     terminal.scrollTop = terminal.scrollHeight;  // Keeps terminal scrolled to the bottom
