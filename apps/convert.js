@@ -1,18 +1,66 @@
 export async function convert(arg) {
   if (!arg) {
     return `
-Examples: 
+Format: 'convert [number] [fromUnit] [toUnit]
 
-- [convert 1M USD SGD](cmd://convert 1M USD SGD) converts 1 million USD to SGD
-- [convert 1k cm m](cmd://convert 1k cm m) converts 1,000 cm to m
-- [convert 1G m cm](cmd://convert 1G m cm) converts 1 billion meters to cm
-  
-Supported Units (fromUnit → toUnit):
+## Examples:
 
-- USD → SGD, EUR
-- cm → m, in
-- l → gal, ml
-        
+### Length
+- [convert 1 mi km](cmd://convert 1 mi km) converts 1 mile to kilometers
+- [convert 5 ft m](cmd://convert 5 ft m) converts 5 feet to meters
+
+### Weight
+- [convert 200 lbs kg](cmd://convert 200 lbs kg) converts 200 pounds to kilograms
+- [convert 50 kg lbs](cmd://convert 50 kg lbs) converts 50 kilograms to pounds
+
+### Temperature
+- [convert 32 F C](cmd://convert 32 F C) converts 32°F to °C
+- [convert 100 C F](cmd://convert 100 C F) converts 100°C to °F
+
+### Volume
+- [convert 1 gal L](cmd://convert 1 gal L) converts 1 gallon to liters
+- [convert 2 L gal](cmd://convert 2 L gal) converts 2 liters to gallons
+
+### Speed
+- [convert 60 mph km/h](cmd://convert 60 mph km/h) converts 60 miles per hour to km/h
+
+## Supported Units (fromUnit → toUnit):
+
+### Length
+- m → cm, mm, in, ft, yd, mi, km
+- cm → m, mm, in, ft, yd, mi, km
+- mm → m, cm, in, ft, yd, mi, km
+- in → m, cm, mm, ft, yd, mi, km
+- ft → m, cm, mm, in, yd, mi, km
+- yd → m, cm, mm, in, ft, mi, km
+- mi → m, cm, mm, in, ft, yd, km
+- km → m, cm, mm, in, ft, yd, mi
+
+### Weight
+- kg → g, mg, lb, oz
+- g → kg, mg, lb, oz
+- mg → kg, g, lb, oz
+- lb → kg, g, mg, oz
+- oz → kg, g, mg, lb
+
+### Temperature
+- °C → °F
+- °F → °C
+
+### Volume
+- L → gal, ml, ft^3, m^3
+- gal → L, ml, ft^3, m^3
+- ml → L, gal, ft^3, m^3
+- ft^3 → L, gal, ml, m^3
+- m^3 → L, gal, ml, ft^3
+
+### Speed
+- m/s → km/h, mph
+- km/h → m/s, mph
+- mph → m/s, km/h
+
+### And many more...
+
 Supported engineering notations: f, p, n, u, m, c, d, k, M, G, T
 (from femto 1e-15 to tera 1e12)`;
   }
@@ -113,7 +161,7 @@ let unitDimensions = {
   "4:3": "aspectRatio", "16:9": "aspectRatio", "EV": "exposureValue",
 
   // Business and Computing
-  "USD": "currency", "EUR": "currency", 
+  // "USD": "currency", "EUR": "currency", 
   "APR": "interestRate", "APY": "interestRate",
   "FY": "businessTime", "Q": "businessTime", "$M": "marketCap", "$B": "marketCap",
   "single": "unitsSold", "dozen": "unitsSold", "gross": "unitsSold",
