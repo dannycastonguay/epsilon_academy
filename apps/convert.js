@@ -26,40 +26,71 @@ Format: 'convert [number] [fromUnit] [toUnit]
 
 ## Supported Units (fromUnit → toUnit):
 
-### Length
-- m → cm, mm, in, ft, yd, mi, km
-- cm → m, mm, in, ft, yd, mi, km
-- mm → m, cm, in, ft, yd, mi, km
-- in → m, cm, mm, ft, yd, mi, km
-- ft → m, cm, mm, in, yd, mi, km
-- yd → m, cm, mm, in, ft, mi, km
-- mi → m, cm, mm, in, ft, yd, km
-- km → m, cm, mm, in, ft, yd, mi
+### Time
+- sec, min, hour, day, year, millennium, decade, century, epoch, fortnight, microsecond, nanosecond
 
-### Weight
-- kg → g, mg, lb, oz
-- g → kg, mg, lb, oz
-- mg → kg, g, lb, oz
-- lb → kg, g, mg, oz
-- oz → kg, g, mg, lb
+### Frequency
+- Hz, RPM, BPM, GHz, MHz, kHz
+
+### Length
+- km, m, cm, mm, nanometer, micrometer, in, ft, yd, mi, angstrom, league, nauticalmile, lightyear
+
+### Mass
+- kg, gram, mg, lb, oz, tonne, grain, slug
 
 ### Temperature
-- °C → °F
-- °F → °C
+- degC, degF, K, degR
 
 ### Volume
-- L → gal, ml, ft^3, m^3
-- gal → L, ml, ft^3, m^3
-- ml → L, gal, ft^3, m^3
-- ft^3 → L, gal, ml, m^3
-- m^3 → L, gal, ml, ft^3
+- L, gal, mL, ft^3, m^3, tsp, Tbsp, cup, in^3, barrel, bushel, pint, quart, peck
 
 ### Speed
-- m/s → km/h, mph
-- km/h → m/s, mph
-- mph → m/s, km/h
+- m/s, km/h, mph, ft/min, knot, mach
 
-### And many more...
+### Acceleration
+- m/s2, ft/s2, g
+
+### Angles
+- degrees, radians, gradian, arcmin, arcsec
+
+### Energy
+- J, cal, kcal, kJ, erg, Wh, BTU, eV, foot-pound
+
+### Force
+- N, lbf, dyne, kgf
+
+### Torque
+- N+m, ft-lbf
+
+### Pressure
+- Pa, psi, atm, torr, kPa, bar, mmHg
+
+### Power
+- W, hp, BTU/h, erg/s, cal/s
+
+### Magnetic Field
+- tesla, gauss, A/m
+
+### Ionizing Radiation Exposure
+- R, C/kg, Sv
+
+### Fuel Efficiency
+- mpg, L/100km, km/L
+
+### Data
+- bit, byte, KB, MB, GB, TB, PB, EB, ZB, YB, nibble
+
+### Paper Size
+- A3, A4, A5, B4, B5, letter, legal, tabloid
+
+### Blood Sugar
+- mg/dL, mmol/L
+
+### Density
+- kg/m3, g/cm3, lb/ft3, lb/in3, oz/in3
+
+### Radio Activity
+- Bq, Ci, Rd, Gy
 
 Supported engineering notations: f, p, n, u, m, c, d, k, M, G, T
 (from femto 1e-15 to tera 1e12)`;
@@ -144,97 +175,98 @@ function convertEngineeringNotationToNumber(str) {
   return engineeringNotations[lastChar] ? value * engineeringNotations[lastChar] : parseFloat(str);
 }
 
-let unitDimensions = {
-  // Physics and Engineering
-  "m": "length", "ft": "length", "cm": "length", "in": "length", "miles": "length", "km/h": "velocity",
-  "kg": "mass", "lbs": "mass", "s": "time", "min": "time", "°C": "temperature", "°F": "temperature",
-  "m2": "area", "ft2": "area", "L": "volume", "gal": "volume",
-  "m/s": "velocity", "mph": "velocity", "m/s2": "acceleration", "ft/s2": "acceleration",
-  "J": "energy", "cal": "energy", "kcal": "caloricEnergy", "kJ": "caloricEnergy",
-  "N": "force", "lbf": "force", "Pa": "pressure", "psi": "pressure",
-  "W": "power", "hp": "power", "tesla": "magneticField", "gauss": "magneticField",
-  "Hz": "frequency", "RPM": "frequency", "BPM": "tempo", "byte": "dataSize", "KB": "dataSize", "MB": "dataSize",
-  "mpg": "fuelEfficiency", "L/100km": "fuelEfficiency", "N*m": "torque", "ft*lbf": "torque",
-
-  // Design and Media
-  "dpi": "resolution", "ppi": "resolution", "A4": "paperSize", "letter": "paperSize",
-  "4:3": "aspectRatio", "16:9": "aspectRatio", "EV": "exposureValue",
-
-  // Business and Computing
-  // "USD": "currency", "EUR": "currency", 
-  "APR": "interestRate", "APY": "interestRate",
-  "FY": "businessTime", "Q": "businessTime", "$M": "marketCap", "$B": "marketCap",
-  "single": "unitsSold", "dozen": "unitsSold", "gross": "unitsSold",
-  "MIPS": "processingSpeed", "FLOPS": "processingSpeed", "bps": "bandwidth", "Mbps": "bandwidth", "Gbps": "bandwidth",
-
-  // Environmental and Geography
-  "degrees": "angles", "radians": "angles", "deg,min,sec": "geoCoords", "decimal": "geoCoords",
-  "in": "rainfall",
-  "AQI": "airQuality", "PM2.5": "airQuality", "PM10": "airQuality",
-
-  // Medicine, Chemistry, and Material Science
-  "mol/L": "concentration", "ppm": "concentration", "mg/dL": "bloodSugar", "mmol/L": "bloodSugar",
-  "mg": "dosage", "ug": "dosage", "Katal": "enzymeUnits", "IU": "enzymeUnits",
-  "g/cm3": "density", "kg/m3": "density", "Mohs": "hardness", "Vickers": "hardness",
-  
-  // Miscellaneous
-  "dB": "sound", "lux": "lightIntensity", "Bq": "radioactivity", "curie": "radioactivity",
-  "tex": "yarnCount", "denier": "yarnCount", "GSM": "fabricWeight", "oz/yd2": "fabricWeight",
-  "tsp": "cookingUnits", "Tbsp": "cookingUnits", "cup": "cookingUnits", "/ft2": "pricePerSquare",
-  "/m2": "pricePerSquare"
+const unitDimensions = {
+  // Time
+  "sec": "time", "min": "time", "hour": "time", "day": "time", "year": "time", "millennium": "time", "decade": "time", "century": "time", "epoch": "time", "fortnight": "time", "microsecond": "time", "nanosecond": "time",
+  // Frequency
+  "Hz": "frequency", "RPM": "frequency", "BPM": "frequency", "GHz": "frequency", "MHz": "frequency", "kHz": "frequency",
+  // Length
+  "km": "length", "m": "length", "cm": "length", "mm": "length", "nanometer": "length", "micrometer": "length", "in": "length", "ft": "length", "yd": "length", "mi": "length", "angstrom": "length", "league": "length", "nauticalmile": "length", "lightyear": "length",
+  // Mass
+  "kg": "mass", "gram": "mass", "mg": "mass", "lb": "mass", "oz": "mass", "tonne": "mass", "grain": "mass", "slug": "mass",
+  // Temperature
+  "degC": "temperature", "degF": "temperature", "K": "temperature", "degR": "temperature",
+  // Volume
+  "L": "volume", "gal": "volume", "mL": "volume", "ft^3": "volume", "m^3": "volume", "tsp": "volume", "Tbsp": "volume", "cup": "volume", "in^3": "volume", "barrel": "volume", "bushel": "volume", "pint": "volume", "quart": "volume", "peck": "volume",
+  // Speed
+  "m/s": "speed", "km/h": "speed", "mph": "speed", "ft/min": "speed", "knot": "speed", "mach": "speed",
+  // Acceleration
+  "m/s2": "acceleration", "ft/s2": "acceleration", "g": "acceleration",
+  // Angles
+  "degrees": "angle", "radians": "angle", "gradian": "angle", "arcmin": "angle", "arcsec": "angle",
+  // Energy
+  "J": "energy", "cal": "energy", "kcal": "energy", "kJ": "energy", "erg": "energy", "Wh": "energy", "BTU": "energy", "eV": "energy", "foot-pound": "energy",
+  // Force
+  "N": "force", "lbf": "force", "dyne": "force", "kgf": "force",
+  // Torque
+  "N+m": "torque", "ft-lbf": "torque",
+  // Pressure
+  "Pa": "pressure", "psi": "pressure", "atm": "pressure", "torr": "pressure", "kPa": "pressure", "bar": "pressure", "mmHg": "pressure",
+  // Power
+  "W": "power", "hp": "power", "BTU/h": "power", "erg/s": "power", "cal/s": "power",
+  // MagneticField
+  "tesla": "magnetic_field", "gauss": "magnetic_field", "A/m": "magnetic_field",
+  // IonizingRadiationExposure
+  "R": "ionizing_radiation_exposure", "C/kg": "ionizing_radiation_exposure", "Sv": "ionizing_radiation_exposure",
+  // FuelEfficiency
+  "mpg": "fuel_efficiency", "L/100km": "fuel_efficiency", "km/L": "fuel_efficiency",
+  // Data
+  "bit": "data", "byte": "data", "KB": "data", "MB": "data", "GB": "data", "TB": "data", "PB": "data", "EB": "data", "ZB": "data", "YB": "data", "nibble": "data",
+  // PaperSize
+  "A3": "paper_size", "A4": "paper_size", "A5": "paper_size", "B4": "paper_size", "B5": "paper_size", "letter": "paper_size", "legal": "paper_size", "tabloid": "paper_size",
+  // BloodSugar
+  "mg/dL": "blood_sugar", "mmol/L": "blood_sugar",
+  // Density
+  "kg/m3": "density", "g/cm3": "density", "lb/ft3": "density", "lb/in3": "density", "oz/in3": "density",
+  // RadioActivity
+  "Bq": "radioactivity", "Ci": "radioactivity", "Rd": "radioactivity", "Gy": "radioactivity",
 };
 
 const unitToBase = {
-  // Length
-  "m": 1, "cm": 0.01, "mm": 0.001, "in": 0.0254, "ft": 0.3048, "yd": 0.9144, "mi": 1609.34, "km": 1000,
-  // Mass
-  "kg": 1, "g": 0.001, "mg": 1e-6, "lb": 0.453592, "oz": 0.0283495,
   // Time
-  "s": 1, "min": 60, "h": 3600, 
-  // Temperature
-  "K": 1, "C": 1, "F": 1, 
-  // Area
-  "m^2": 1, "ft^2": 0.092903, "acre": 4046.86,
-  // Volume
-  "l": 1, "gal": 3.78541, "m^3": 1000, "ft^3": 28.3168,
-  // Velocity
-  "m/s": 1, "km/h": 0.277778, "mph": 0.44704,
-  // Acceleration
-  "m/s^2": 1, "ft/s^2": 0.3048,
-  // Energy
-  "J": 1, "cal": 4.184, "BTU": 1055.06,
-  // Force
-  "N": 1, "lbf": 4.44822,
-  // Pressure
-  "Pa": 1, "bar": 100000, "psi": 6894.76,
-  // Fuel Efficiency
-  "mpg": 1, "L/100km": 1,
-  // Angle
-  "degree": 1, "radian": 57.2958, "gradian": 63.662,
-  // Cooking
-  "tsp": 1, "tbsp": 3, "cup": 48,
-  // Medicine
-  "mg": 1, "mcg": 0.001, "mol/L": 1, "ppm": 1e-6,
-  // Sports
-  "cal": 1, "kJ": 0.239006,
-  // Textiles
-  "tex": 1, "denier": 9,
-  // Geography
-  "degree": 1, "minute": 1/60, "second": 1/3600,
-  // Aviation
-  "knot": 0.514444, "mph": 0.44704,
-  // Chemistry
-  "mol/L": 1, "g/cm^3": 1000, "kg/m^3": 1,
-  // Computing
-  "MIPS": 1, "FLOPS": 1, "bps": 1, "Mbps": 1e6, "Gbps": 1e9,
-  // Environmental
-  "mm": 1, "AQI": 1, "PM2.5": 1, "PM10": 1,
-  // Music
-  "Hz": 1, "kHz": 1000, "BPM": 1,
-  // Real Estate
-  "ft^2": 1, "m^2": 10.7639,
-  // Automotive
-  "N*m": 1, "ft*lbf": 1.35582,
-  // Miscellaneous
-  "dB": 1, "lux": 1, "Bq": 1, "Ci": 3.7e10
+  "sec": 1, "min": 60, "hour": 3600, "day": 86400, "year": 31536000, "millennium": 31536000000, "decade": 315360000, "century": 3153600000, "epoch": 31557600000, "fortnight": 1209600, "microsecond": 1e-6, "nanosecond": 1e-9,
+  // Frequency
+  "Hz": 1, "RPM": 1 / 60, "BPM": 1 / 60, "GHz": 1e9, "MHz": 1e6, "kHz": 1e3,
+  // Length
+  "km": 1000, "m": 1, "cm": 0.01, "mm": 0.001, "nanometer": 1e-9, "micrometer": 1e-6, "in": 0.0254, "ft": 0.3048, "yd": 0.9144, "mi": 1609.34, "angstrom": 1e-10, "league": 4828.032, "nauticalmile": 1852, "lightyear": 9.461e15,
+  //Mass
+  "kg": 1, "gram": 0.001, "mg": 1e-6, "lb": 0.453592, "oz": 0.0283495, "tonne": 1000, "grain": 6.47989e-5, "slug": 14.5939,
+  //Temperature
+  "degC": 1, "degF": 1, "K": 1, "degR": 1,
+  //Volume
+  "L": 1, "gal": 3.78541, "mL": 0.001, "ft^3": 0.0283168, "m^3": 1, "tsp": 0.00492892, "Tbsp": 0.0147868, "cup": 0.237, "in^3": 1.6387e-5, "barrel": 0.158987, "bushel": 0.0352391, "pint": 0.473176, "quart": 0.946353, "peck": 0.00880977,
+  //Speed
+  "m/s": 1, "km/h": 0.277778, "mph": 0.44704, "ft/min": 0.00508, "knot": 0.514444, "mach": 343,
+  //Acceleration
+  "m/s2": 1, "ft/s2": 0.3048, "g": 9.80665,
+  //Angles
+  "degrees": 1, "radians": 57.2958, "gradian": 1.11111, "arcmin": 0.0166667, "arcsec": 0.000277778,
+  //Energy
+  "J": 1, "cal": 4.184, "kcal": 4184, "kJ": 1000, "erg": 1e-7, "Wh": 3600, "BTU": 1055.06, "eV": 1.60218e-19, "foot-pound": 1.35582,
+  //Force
+  "N": 1, "lbf": 4.44822, "dyne": 1e-5, "kgf": 9.80665,
+  //Torque
+  "N+m": 1, "ft-lbf": 1.35582,
+  //Pressure
+  "Pa": 1, "psi": 6894.76, "atm": 101325, "torr": 133.322, "kPa": 1000, "bar": 100000, "mmHg": 133.322,
+  //Power
+  "W": 1, "hp": 745.7, "BTU/h": 0.293071, "erg/s": 1e-7, "cal/s": 4.184, 
+  //MagneticField
+  "tesla": 1, "gauss": 1e-4, "A/m": 79.5775,
+  //IonizingRadiationExposure
+  "R": 2.58e-4, "C/kg": 1, "Sv": 1,
+  //FuelEfficiency
+  "mpg": 1, "L/100km": 235.215, "km/L": 0.425144,
+  //Data
+  "bit": 1, "byte": 8, "KB": 8192, "MB": 8388608, "GB": 8589934592, "TB": 8796093022208, "PB": 9007199254740992, "EB": 9.22337203685478e18, "ZB": 9.44473296573929e21, "YB": 9.67140655691703e24, "nibble": 4,
+  //PaperSize
+  "A3": 1, "A4": 0.5, "A5": 0.25, "B4": 0.9, "B5": 0.45, "letter": 0.514444, "legal": 0.646222, "tabloid": 1.02889,
+  //BloodSugar
+  "mg/dL": 1, "mmol/L": 0.0555,
+  //Density
+  "kg/m3": 1, "g/cm3": 1000, "lb/ft3": 16.0185, "lb/in3": 27679.9, "oz/in3": 1728,
+  // RadioActivity
+  "Bq": 1, "Ci": 3.7e10, "Rd": 1, "Gy": 100,
 };
+
+
