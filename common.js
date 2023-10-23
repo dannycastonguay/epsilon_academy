@@ -1,7 +1,7 @@
 // common.js
 
 // List your command names directly
-export const commandNames = ["about", "axolotl", "convert", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers", "wordle"];
+export const commandNames = ["about", "axolotl", "convert", "dragon", "helloWorld", "isItGood", "joke", "personalInfo", "primeNumbers", "whisper", "wordle"];
 
 // State variable to indicate whether the terminal is in "input mode".
 // Useful for knowing whether the terminal is waiting for user input.

@@ -1,8 +1,10 @@
+import { ask } from '../common.js';
+
 // Initialize cost per minute (replace with actual cost)
 const costPerMinute = 0.006;
 
-// Function to start and stop recording
-const startStopRecording = async () => {
+
+export async function whisper() {
   // Prompt for OpenAI API key
   const apiKey = prompt("Enter your OpenAI API key:");
 
@@ -38,8 +40,7 @@ const startStopRecording = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      alert(`Text: ${data.text}`);
-      alert(`This API call cost you $${cost.toFixed(4)}`);
+      alert(`This API call cost you $${cost.toFixed(4)}. Text: ${data.text}`);
     } else {
       alert('Error with API call');
     }
@@ -48,6 +49,18 @@ const startStopRecording = async () => {
   // Start recording
   mediaRecorder.start();
   startTime = Date.now();
+
+  const doneRecording = await ask(`
+  # Whisper 🎙️
+
+  You are being recorded! (unless your browser doesn't allow it). OpenAI will charge you $${costPerMinute} per minute. 
+  
+  Please reply [stop](cmd://stop) when you are done.`);
+
+  if (doneRecording.toLowerCase() === "stop") {
+    mediaRecorder.stop();
+  }
+
 
   // Create and display the stop button
   const stopButton = document.createElement("button");
@@ -60,6 +73,3 @@ const startStopRecording = async () => {
     document.body.removeChild(stopButton);
   };
 };
-
-// Call the function to start recording and display the stop button
-startStopRecording();
