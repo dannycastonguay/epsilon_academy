@@ -1,96 +1,47 @@
 export async function convert(arg) {
   if (!arg) {
     return `
-Format: 'convert [number] [fromUnit] [toUnit]
+# Convert 🕒🎵📏⚖️🌡️🍼🚗🚀📐💡💪🛠️🧲☢️⛽💾📄💉🧱
+
+    Format: 'convert [number] [fromUnit] [toUnit]
+
+## Supported Units (fromUnit → toUnit):
+| Category                  | Units                                        |
+|---------------------------|----------------------------------------------|
+| Time                      | sec, min, hour, day, year, millennium, decade, century, epoch, fortnight, microsecond, nanosecond |
+| Frequency                 | Hz, RPM, BPM, GHz, MHz, kHz                   |
+| Length                    | km, m, cm, mm, nanometer, micrometer, in, ft, yd, mi, angstrom, league, nauticalmile, lightyear |
+| Mass                      | kg, gram, mg, lb, oz, tonne, grain, slug      |
+| Temperature               | degC, degF, K, degR                           |
+| Volume                    | L, gal, mL, ft^3, m^3, tsp, Tbsp, cup, in^3, barrel, bushel, pint, quart, peck |
+| Speed                     | m/s, km/h, mph, ft/min, knot, mach            |
+| Acceleration              | m/s2, ft/s2, g                                |
+| Angles                    | degrees, radians, gradian, arcmin, arcsec     |
+| Energy                    | J, cal, kcal, kJ, erg, Wh, BTU, eV, foot-pound |
+| Force                     | N, lbf, dyne, kgf                             |
+| Torque                    | N+m, ft-lbf                                   |
+| Pressure                  | Pa, psi, atm, torr, kPa, bar, mmHg            |
+| Power                     | W, hp, BTU/h, erg/s, cal/s                    |
+| Magnetic Field            | tesla, gauss, A/m                             |
+| Ion Radiation Exp | R, C/kg, Sv                                  |
+| Fuel Efficiency           | mpg, L/100km, km/L                            |
+| Data                      | bit, byte, KB, MB, GB, TB, PB, EB, ZB, YB, nibble |
+| Paper Size                | A3, A4, A5, B4, B5, letter, legal, tabloid    |
+| Blood Sugar               | mg/dL, mmol/L                                 |
+| Density                   | kg/m3, g/cm3, lb/ft3, lb/in3, oz/in3          |
+| Radio Activity            | Bq, Ci, Rd, Gy                                |
 
 ## Examples:
 
-### Length
-- [convert 1 mi km](cmd://convert 1 mi km) converts 1 mile to kilometers
-- [convert 5 ft m](cmd://convert 5 ft m) converts 5 feet to meters
-
-### Weight
-- [convert 200 lbs kg](cmd://convert 200 lbs kg) converts 200 pounds to kilograms
-- [convert 50 kg lbs](cmd://convert 50 kg lbs) converts 50 kilograms to pounds
-
-### Temperature
-- [convert 32 F C](cmd://convert 32 F C) converts 32°F to °C
-- [convert 100 C F](cmd://convert 100 C F) converts 100°C to °F
-
-### Volume
-- [convert 1 gal L](cmd://convert 1 gal L) converts 1 gallon to liters
-- [convert 2 L gal](cmd://convert 2 L gal) converts 2 liters to gallons
-
-### Speed
-- [convert 60 mph km/h](cmd://convert 60 mph km/h) converts 60 miles per hour to km/h
-
-## Supported Units (fromUnit → toUnit):
-
-### Time
-- sec, min, hour, day, year, millennium, decade, century, epoch, fortnight, microsecond, nanosecond
-
-### Frequency
-- Hz, RPM, BPM, GHz, MHz, kHz
-
-### Length
-- km, m, cm, mm, nanometer, micrometer, in, ft, yd, mi, angstrom, league, nauticalmile, lightyear
-
-### Mass
-- kg, gram, mg, lb, oz, tonne, grain, slug
-
-### Temperature
-- degC, degF, K, degR
-
-### Volume
-- L, gal, mL, ft^3, m^3, tsp, Tbsp, cup, in^3, barrel, bushel, pint, quart, peck
-
-### Speed
-- m/s, km/h, mph, ft/min, knot, mach
-
-### Acceleration
-- m/s2, ft/s2, g
-
-### Angles
-- degrees, radians, gradian, arcmin, arcsec
-
-### Energy
-- J, cal, kcal, kJ, erg, Wh, BTU, eV, foot-pound
-
-### Force
-- N, lbf, dyne, kgf
-
-### Torque
-- N+m, ft-lbf
-
-### Pressure
-- Pa, psi, atm, torr, kPa, bar, mmHg
-
-### Power
-- W, hp, BTU/h, erg/s, cal/s
-
-### Magnetic Field
-- tesla, gauss, A/m
-
-### Ionizing Radiation Exposure
-- R, C/kg, Sv
-
-### Fuel Efficiency
-- mpg, L/100km, km/L
-
-### Data
-- bit, byte, KB, MB, GB, TB, PB, EB, ZB, YB, nibble
-
-### Paper Size
-- A3, A4, A5, B4, B5, letter, legal, tabloid
-
-### Blood Sugar
-- mg/dL, mmol/L
-
-### Density
-- kg/m3, g/cm3, lb/ft3, lb/in3, oz/in3
-
-### Radio Activity
-- Bq, Ci, Rd, Gy
+| Category    | Conversion Example                          | Description                    |
+|-------------|---------------------------------------------|--------------------------------|
+| Length      | [convert 1 mi km](cmd://convert 1 mi km)     | converts 1 mile to kilometers  |
+| Length      | [convert 5k ft m](cmd://convert 5k ft m)       | converts 5,000 feet to meters      |
+| Weight      | [convert 200 lb kg](cmd://convert 200 lb kg) | converts 200 pounds to kilograms |
+| Weight      | [convert 50M kg lb](cmd://convert 50M kg lb) | converts 50 million kilograms to pounds |
+| Temperature | [convert 32 F C](cmd://convert 32 F C)       | converts 32°F to °C            |
+| Volume      | [convert 1 gal L](cmd://convert 1 gal L)     | converts 1 gallon to liters    |
+| Speed       | [convert 60 mph km/h](cmd://convert 60 mph km/h) | converts 60 miles per hour to km/h |
 
 Supported engineering notations: f, p, n, u, m, c, d, k, M, G, T
 (from femto 1e-15 to tera 1e12)`;
@@ -231,39 +182,39 @@ const unitToBase = {
   "km": 1000, "m": 1, "cm": 0.01, "mm": 0.001, "nanometer": 1e-9, "micrometer": 1e-6, "in": 0.0254, "ft": 0.3048, "yd": 0.9144, "mi": 1609.34, "angstrom": 1e-10, "league": 4828.032, "nauticalmile": 1852, "lightyear": 9.461e15,
   //Mass
   "kg": 1, "gram": 0.001, "mg": 1e-6, "lb": 0.453592, "oz": 0.0283495, "tonne": 1000, "grain": 6.47989e-5, "slug": 14.5939,
-  //Temperature
+  // Temperature
   "degC": 1, "degF": 1, "K": 1, "degR": 1,
-  //Volume
+  // Volume
   "L": 1, "gal": 3.78541, "mL": 0.001, "ft^3": 0.0283168, "m^3": 1, "tsp": 0.00492892, "Tbsp": 0.0147868, "cup": 0.237, "in^3": 1.6387e-5, "barrel": 0.158987, "bushel": 0.0352391, "pint": 0.473176, "quart": 0.946353, "peck": 0.00880977,
-  //Speed
+  // Speed
   "m/s": 1, "km/h": 0.277778, "mph": 0.44704, "ft/min": 0.00508, "knot": 0.514444, "mach": 343,
-  //Acceleration
+  // Acceleration
   "m/s2": 1, "ft/s2": 0.3048, "g": 9.80665,
-  //Angles
+  // Angles
   "degrees": 1, "radians": 57.2958, "gradian": 1.11111, "arcmin": 0.0166667, "arcsec": 0.000277778,
-  //Energy
+  // Energy
   "J": 1, "cal": 4.184, "kcal": 4184, "kJ": 1000, "erg": 1e-7, "Wh": 3600, "BTU": 1055.06, "eV": 1.60218e-19, "foot-pound": 1.35582,
-  //Force
+  // Force
   "N": 1, "lbf": 4.44822, "dyne": 1e-5, "kgf": 9.80665,
-  //Torque
+  // Torque
   "N+m": 1, "ft-lbf": 1.35582,
-  //Pressure
+  // Pressure
   "Pa": 1, "psi": 6894.76, "atm": 101325, "torr": 133.322, "kPa": 1000, "bar": 100000, "mmHg": 133.322,
-  //Power
+  // Power
   "W": 1, "hp": 745.7, "BTU/h": 0.293071, "erg/s": 1e-7, "cal/s": 4.184, 
-  //MagneticField
+  // MagneticField
   "tesla": 1, "gauss": 1e-4, "A/m": 79.5775,
-  //IonizingRadiationExposure
+  // IonizingRadiationExposure
   "R": 2.58e-4, "C/kg": 1, "Sv": 1,
-  //FuelEfficiency
+  // FuelEfficiency
   "mpg": 1, "L/100km": 235.215, "km/L": 0.425144,
-  //Data
+  // Data
   "bit": 1, "byte": 8, "KB": 8192, "MB": 8388608, "GB": 8589934592, "TB": 8796093022208, "PB": 9007199254740992, "EB": 9.22337203685478e18, "ZB": 9.44473296573929e21, "YB": 9.67140655691703e24, "nibble": 4,
-  //PaperSize
+  // PaperSize
   "A3": 1, "A4": 0.5, "A5": 0.25, "B4": 0.9, "B5": 0.45, "letter": 0.514444, "legal": 0.646222, "tabloid": 1.02889,
-  //BloodSugar
+  // BloodSugar
   "mg/dL": 1, "mmol/L": 0.0555,
-  //Density
+  // Density
   "kg/m3": 1, "g/cm3": 1000, "lb/ft3": 16.0185, "lb/in3": 27679.9, "oz/in3": 1728,
   // RadioActivity
   "Bq": 1, "Ci": 3.7e10, "Rd": 1, "Gy": 100,
