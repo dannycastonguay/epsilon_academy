@@ -14,9 +14,9 @@ In mathematics, the symbol ℇ (Epsilon) is used to denote a small positive numb
 ## Founders
 
 - 🦉 **Danny**: The servant leader of the pack and clown in chief for this circus. He is a grown up now with a [resume](https://resume.dannycastonguay.com) and a [blog](https://blog.dannycastonguay.com).
-- 🐘 **Pascale**: Named in honor of Blaise Pascal and Pierre de Fermat, whose groundbreaking work in probability theory laid the foundation for modern statistics and machine learning. Without their contributions, advanced technologies like GPT models would not be possible.
+- **Pascale**: Named in honor of Blaise Pascal and Pierre de Fermat, whose groundbreaking work in probability theory laid the foundation for modern statistics and machine learning. Without their contributions, advanced technologies like GPT models would not be possible. She likes to draw cats on [scratch](https://scratch.mit.edu/users/singingwale/). Coding is one of the things she is still learning, but enjoys.
 - 🐧 **Linus**: Inspired by Linus Torvalds, who exemplifies the profound impact one motivated individual can have. His work on Linux and Git underpins much of the modern internet, serving as an inspiration for our commitment to ambitious, collaborative projects.
-- 🦋 **Ada**:  In homage to Ada Lovelace, the world's first programmer who worked with Charles Babbage on the Analytical Engine. As the daughter of the famed poet Lord Byron, Ada Lovelace brings a unique blend of arts and sciences, symbolizing our dedication to a diverse and interdisciplinary approach to technology.
+- 🦋 **Ada**:  In homage to Ada Lovelace, the world's first programmer who worked with Charles Babbage on the Analytical Engine. As the daughter of the famed poet Lord Byron, Ada Lovelace brings a unique blend of arts and sciences, symbolizing our dedication to a diverse and interdisciplinary approach to technology. Although she was named after someone so great, she is the opposite. She likes poop and mermaids.
 
 ## What We Do
 
