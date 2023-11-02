@@ -2,7 +2,7 @@ import { ask } from '../common.js';
 
 export async function dragon() {
   const gender = await ask(`
-  # Dragon 🐲
+  # Dragon 🐲🐲
 
   ## Character creation
 
@@ -50,14 +50,14 @@ Okay, you are a ${gender}. Are you a [Seawing](cmd://seawing), [Rainwing](cmd://
   ## The story begins
 
   You wake up as a ${gender} ${dragonType} dragon in your egg. What will you do? [Break](cmd://break) out of the egg or [Stay](cmd://stay) in the egg`));
-
+//"break" isnt working
   switch (intro) {
     case "break" : return `You burst out of your egg, floating in the water. Your mother picks you up into her arms.
 
-    # THE END.`;
+    # You stay`;
     case "stay" : return `You decide it's too scary and wait inside the egg for a while.
 
-    # THE END.`;
+    # THE END`;
     default: return `# ERRORRRRRRRR
     That's not a story option. Bye!`;
   }
