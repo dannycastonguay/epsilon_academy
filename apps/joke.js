@@ -1,7 +1,7 @@
 import { ask } from '../common.js';
 
 export async function joke() {
-    const j = Math.floor(Math.random() * 11) + 1;
+    const j = Math.floor(Math.random() * 13) + 1;
     switch (j) {
       case 1:
         return "Knock, knock. Who's there? Copycat. Copycat who? Copycat who?";
@@ -25,6 +25,10 @@ export async function joke() {
         return "Why do we tell actors to “break a leg?” Because every play has a cast";
       case 11:
         return "Hah! Jokes on YOU.";
+      case 12:
+        return "What do Japanese cannibals eat? Raw men!";
+      case 13:
+        return "Why do people with foot fetishes do not mind losing?";
       default:
         return "Invalid number.";
     }
